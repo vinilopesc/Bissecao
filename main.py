@@ -2,17 +2,19 @@ import sympy as sp
 import pandas as pd
 from IPython.display import display
 
+
 class MetodoBissecao:
     def __init__(self, A, B, precisao, funcao):
         self.a = A
         self.b = B
         self.precisao_usuario = precisao
         self.funcao = funcao
-        self.x = sp.Symbol('x')  #
+        self.x = sp.Symbol('x')
+
     def calcular_funcao(self, x_valor):
         try:
-            funcao = sp.sympify(self.funcao)  # converte de string para uma expressão
-            return funcao.subs(self.x, x_valor)  # Substituindo x pelo valor de x_valor
+            funcao = sp.sympify(self.funcao)
+            return funcao.subs(self.x, x_valor)
         except Exception as e:
             print(f"Erro ao calcular a função em x = {x_valor}: {e}")
             return None
@@ -75,6 +77,7 @@ def main():
     try:
         A = float(input("Informe o valor de A: "))
         B = float(input("Informe o valor de B: "))
+
         precisao_input = input("Informe a precisão desejada: ")
         precisao = float(precisao_input.replace(',', '.'))
         if precisao <= 0:
@@ -82,7 +85,6 @@ def main():
             return
 
         funcao = input("Informe a função f(x): ")
-
         trabalho = MetodoBissecao(A, B, precisao, funcao)
         iteracoes, valor_final, total_iteracoes = trabalho.metodo_bissecao()
 
@@ -96,13 +98,6 @@ def main():
         print(f"O valor final aproximado da raiz é: {valor_final}")
 
     except ValueError:
-        print("Erro: Verifique se A, B e precisão são números válidos.")
-    except sp.SympifyError:
-        print("Erro: A função inserida não é válida. Verifique a sintaxe.")
+        print("Erro: Verifique se A, B e precisão são números válidos e se a função é válida.")
     except Exception as e:
         print(f"Ocorreu um erro inesperado: {e}")
-
-
-
-if __name__ == "__main__":
-    main()
